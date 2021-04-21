@@ -1,0 +1,91 @@
+/*
+ * Sidebar
+ */
+
+ .sidebar {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 20%; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 999; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  /*background-color: #208A4C;  Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  border-right: 1px solid #3E649229;
+}
+
+
+.sidebar-expanded {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 250px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 99; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  /*border-right: 1px solid #3E649229;*/
+}
+
+.nav-item {
+  margin: 1em auto;
+}
+
+.sidebar-link, .sidebar-expanded {
+ color: black;
+}
+
+.sidebar .active {
+
+ color: #000000; 
+ outline: none;
+ cursor: pointer; 
+ text-decoration: none;
+ position: relative;
+}
+
+
+.sidebar-expanded .active {
+  color: #000000; 
+  outline: none;
+  cursor: pointer; 
+  text-decoration: none;
+  position: relative;
+ }
+ 
+
+ /* Hide scrollbar for Chrome, Safari and Opera */
+ .sidebar::-webkit-scrollbar, .sidebar-expanded::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.sidebar, .sidebar-expanded {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+} 
+
+.menu {
+  width: 120px;
+  box-shadow: 0 4px 5px 3px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: none;
+}
+
+.menu .menu-options {
+  list-style: none;
+  padding: 10px 0;
+}
+
+.menu-options .menu-option {
+  font-weight: 500;
+  font-size: 14px;
+  padding: 10px 40px 10px 20px;
+  cursor: pointer;
+}
+
+.menu-option:hover {
+  background: rgba(0, 0, 0, 0.2);
+}

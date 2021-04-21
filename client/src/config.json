@@ -1,0 +1,6 @@
+{
+    "API_URL": "https://localhost:5600",
+    "REACT_APP_KEY": "123456",
+    "AUTH_DOMAIN": "dev-thttcy2m.us.auth0.com",
+    "AUTH_CLIENTID": "g2f5pLtvp1CWtfsuuOkWT5xkAglruy6Y"
+}

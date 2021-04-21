@@ -1,0 +1,5 @@
+{
+    "ENVIRONMENT": "development",
+    "PORT": 5600,
+    "MONGO_URI": "mongodb+srv://silicon:passwordfuck10@cluster0.2qpdm.mongodb.net/im?retryWrites=true&w=majority"
+}
