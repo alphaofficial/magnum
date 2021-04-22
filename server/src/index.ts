@@ -16,7 +16,7 @@ async function startApolloServer() {
   const PORT = require("../config.json").PORT
    const app = express();
   app.use(cors({
-    origin: ['http://localhost:4200']
+    origin: ['http://localhost:3000', 'http://localhost:4200']
   }))
 
   const server = new ApolloServer({ typeDefs, resolvers, context: {pubsub} });
@@ -34,8 +34,4 @@ async function startApolloServer() {
 
 }
 
-try {
-  startApolloServer()
-} catch (error) {
-  console.log(error.message)
-}
+startApolloServer()

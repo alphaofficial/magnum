@@ -9,7 +9,7 @@ import config from './config.json'
 import {ApolloProvider, ApolloClient, InMemoryCache, HttpLink, split} from '@apollo/react-hooks'
 import {WebSocketLink} from '@apollo/client/link/ws'
 import {getMainDefinition} from 'apollo-utilities'
-import {SubscriptionClient} from 'subscriptions-transport-ws'
+
 
 
 const wsLink = new WebSocketLink({
@@ -21,7 +21,7 @@ const wsLink = new WebSocketLink({
 });
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'http://localhost:5600/graphql',
 });
 
 const link = split(

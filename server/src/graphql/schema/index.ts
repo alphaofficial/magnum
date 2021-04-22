@@ -11,7 +11,7 @@ export const typeDefs = gql`
   }
 
   type Users {
-    email: String!
+    email: String
     picture: String
     isLoggedIn: Boolean
   }
@@ -26,12 +26,13 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    postMessage(origin_user: String!, content: String!, destination_user: String!): String
-    logUser(email: String!, isLoggedIn: Boolean, picture: String): String
+    postMessage(origin_user: String!, content: String!, destination_user: String!): [Message]
+    logUser(email: String, isLoggedIn: Boolean, picture: String): String
   }
 
   type Subscription {
     onMessages: [Message!]
+    messages: [Message]
     onUserUpdate: [Users!]
   }
 `;

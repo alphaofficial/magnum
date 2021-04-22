@@ -9,10 +9,10 @@ export const resolvers = {
 	Query: {
         messages: async() => {
 			const messages = await Message.find({}, (err, messages) => {
-				if(err) return null
+				if(err) return []
+				
 				return messages
 			})
-
 			return messages
 		},
 		messagesByDestinationUser: async(parent: any, {email} : {email: string}) => {
@@ -28,6 +28,7 @@ export const resolvers = {
 				if(err) return null
 				return messages
 			})
+			pubsub.publish('MESSAGES', { messages });
 			console.log("Messages between 2 people: ", messages)
 			return messages
 		},
@@ -56,6 +57,7 @@ export const resolvers = {
     },
 	Mutation: {
         postMessage: async (parent: any, args: IMessage) => {
+			console.log("received: ", args)
 			try {
 				const messages = await Message.find({}, (err, messages) => {
 					if(err) return []
@@ -65,13 +67,13 @@ export const resolvers = {
 
 				const new_message = await newMessage.save()
 				if(new_message){
-					pubsub.publish('NEW_MESSAGE', { onMessages: [...messages, new_message] });
-					return "message created"
+					pubsub.publish('NEW_MESSAGE', { onMessages: [new_message] });
+					return [new_message]
 				}
-				return ""
+				return []
 			} catch (error) {
 				console.log(error.message)
-				return error.message
+				return []
 			}
         },
 		logUser: async (parent: any, {email, isLoggedIn, picture}: {email:string, isLoggedIn: boolean, picture: string}) => {
@@ -116,9 +118,10 @@ export const resolvers = {
     },
 	Subscription: {
         onMessages: {
-            subscribe: async () => {
-				pubsub.asyncIterator(['NEW_MESSAGE'])
-			}
+            subscribe: () => pubsub.asyncIterator(['NEW_MESSAGE'])
+        },
+		messages: {
+            subscribe: () => pubsub.asyncIterator(['MESSAGES'])
         },
 		onUserUpdate: {
             subscribe: () => pubsub.asyncIterator(['USER_UPDATE'])
