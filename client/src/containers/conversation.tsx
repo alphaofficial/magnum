@@ -24,7 +24,7 @@ const Conversation = () => {
 
     if(error) <div>An error occured</div>
     if(isLoading) <div>Loading ...</div>
-    if(isAuthenticated) {
+    if(isAuthenticated && user) {
         return (
            
                 <div className="container">

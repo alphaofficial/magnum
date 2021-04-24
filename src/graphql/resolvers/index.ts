@@ -29,7 +29,7 @@ export const resolvers = {
 				return messages
 			})
 			pubsub.publish('MESSAGES', { messages });
-			console.log("Messages between 2 people: ", messages)
+			//console.log("Messages between 2 people: ", messages)
 			return messages
 		},
 		message: async (parent: any, {email} : {email: string}) => {
@@ -57,7 +57,7 @@ export const resolvers = {
     },
 	Mutation: {
         postMessage: async (parent: any, args: IMessage) => {
-			console.log("received: ", args)
+			//console.log("received: ", args)
 			try {
 				const messages = await Message.find({}, (err, messages) => {
 					if(err) return []
@@ -72,7 +72,7 @@ export const resolvers = {
 				}
 				return []
 			} catch (error) {
-				console.log(error.message)
+				//console.log(error.message)
 				return []
 			}
         },
@@ -89,14 +89,14 @@ export const resolvers = {
 				})
 				
 				if(user.length > 0){
-					console.log("Here: ")
+					//console.log("Here: ")
 					const update_user = await User.findOneAndUpdate({email: email}, {isLoggedIn: isLoggedIn}, {new: true}, (err, user) => {
 						if(err) return err.message
 						if(user) return "User log updated"
 						return "nothing happened"
 					})
 
-					console.log(update_user)
+					//console.log(update_user)
 					pubsub.publish('USER_UPDATE', { onUserUpdate: [update_user] });
 					return "Logged"
 				}
@@ -111,7 +111,7 @@ export const resolvers = {
 				}
 
 			} catch (error) {
-				console.log(error.message)
+				//console.log(error.message)
 				return error.message
 			}
         }

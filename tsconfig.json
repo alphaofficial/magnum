@@ -11,7 +11,8 @@
 		"baseUrl": "./src",
 		"paths": {
 			"@type": ["./src/types/index.ts"]
-		}
+		},
+		"skipLibCheck": true
 	},
 	"exclude": ["node_modules", "dist", "client"],
 }

@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { execute, subscribe } from 'graphql';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
@@ -8,12 +8,14 @@ import { typeDefs } from './graphql/schema';
 import { resolvers } from './graphql/resolvers';
 import {DB_CONNECT} from './config'
 import pubsub from './pubsub'
+import path from 'path'
 
 
+const config = require("../config.json");
 async function startApolloServer() {
   DB_CONNECT()
   
-  const PORT = require("../config.json").PORT
+  const PORT = config.PORT
    const app = express();
   app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost:4200']
@@ -22,6 +24,13 @@ async function startApolloServer() {
   const server = new ApolloServer({ typeDefs, resolvers, context: {pubsub} });
   await server.start();
   server.applyMiddleware({app})
+
+  if(config.ENVIRONMENT === "production") {
+    app.use(express.static(path.join(__dirname, '../client', 'build')));
+    app.use(async (req: Request, res: Response, next: NextFunction) => {
+      res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
+    })
+  }
 
   const httpServer = createServer(app);
   server.installSubscriptionHandlers(httpServer);

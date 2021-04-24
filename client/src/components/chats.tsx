@@ -76,7 +76,6 @@ const MessagesComponent: FC<IMessageComponentProps> = ({currentUser, destination
 export const Chats: FC<IChatProps> = ({currentUser, destinationUser}) => {
 
     const [content, setContent] = useState("")
-    const [temp, setTemp] = useState<any[]>([])
     const {subscribeToMore, data} = useQuery(GET_USER_MESSAGES, {variables: {from: currentUser, to: destinationUser}})
     const [PostMessage] = useMutation(CREATE_MESSAGE)
     
@@ -91,19 +90,14 @@ export const Chats: FC<IChatProps> = ({currentUser, destinationUser}) => {
         }
     }
 
-    useEffect(()=> {
-        console.log(data)
-        //setTemp(data?.messagesBetweenTwoEntities)
-    }, [destinationUser, data, subscribeToMore])
 
-    if(!data && !subscribeToMore) return null
-    
+    if(!data) return null
+    if(!subscribeToMore) return null
     return (
         <div style={{position: 'fixed', left: '20%', width: '80%'}} className="px-6 pt-4">
             <div className="min-h-100 w-auto relative">
-                <MessagesComponent currentUser={currentUser} destinationUser={destinationUser} messages={data.messagesBetweenTwoEntities}
+                <MessagesComponent currentUser={currentUser} destinationUser={destinationUser} messages={data?.messagesBetweenTwoEntities}
                     subscription={() => {
-                        
                             subscribeToMore({
                                 document: GET_USER_MESSAGES_SUB,
                                 variables: {from: currentUser, to: destinationUser},
@@ -113,8 +107,8 @@ export const Chats: FC<IChatProps> = ({currentUser, destinationUser}) => {
                                     if (!subscriptionData.data.onMessages) return prev;
                                     const newMessage = subscriptionData.data.onMessages[0];
                                     //console.log({messagesBetweenTwoEntities: data.messagesBetweenTwoEntities.concat(newMessage)})
-                                    if(newMessage.destination_user === destinationUser) return {messagesBetweenTwoEntities: data.messagesBetweenTwoEntities.concat(newMessage)}
-                                    return prev
+                                    
+                                    return {messagesBetweenTwoEntities: data?.messagesBetweenTwoEntities.concat(newMessage)} || {messagesBetweenTwoEntities: [...prev.messagesBetweenTwoEntities.concat(newMessage)]}
                                 }
                             })
                         
@@ -128,9 +122,6 @@ export const Chats: FC<IChatProps> = ({currentUser, destinationUser}) => {
                         }} type="text" placeholder="Message"  value={content} className="w-full bg-gray-200 py-2 px-2 rounded-md" onChange={e => setContent(e.target.value)} />
                     </div>
                     <div className="flex flex-row">
-                        {/*<img className="mr-2 cursor-pointer" alt="photo" src="/img/image.svg" />
-                        <img className="mr-2 cursor-pointer" alt="camera" src="/img/camera.svg" />
-                        <img className="mr-2 cursor-pointer" alt="mic" src="/img/mic.svg" />*/}
                         <img className="cursor-pointer" alt="send" src="/img/send.svg" onClick={sendMessage}/>
                     </div>
                 </div>
