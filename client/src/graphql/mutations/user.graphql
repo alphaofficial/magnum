@@ -1,0 +1,7 @@
+mutation LogUser($email: String, $picture: String, $isLoggedIn: Boolean){
+    logUser(email: $email, picture: $picture, isLoggedIn: $isLoggedIn) {
+        email
+        picture
+        isLoggedIn
+    }
+}

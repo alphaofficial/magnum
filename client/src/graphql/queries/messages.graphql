@@ -1,0 +1,9 @@
+query messagesBetweenTwoEntities($from: String!, $to: String!) {
+    messagesBetweenTwoEntities(from: $from, to: $to) {
+        origin_user
+        content
+        destination_user
+        createdAt
+    }
+}
+

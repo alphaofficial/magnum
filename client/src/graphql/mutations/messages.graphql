@@ -1,0 +1,8 @@
+mutation PostMessage($from: String!, $content: String!, $to: String!) {
+    postMessage(origin_user: $from, content: $content, destination_user: $to){
+        origin_user
+        content
+        destination_user
+        createdAt
+    }
+}

@@ -4,10 +4,15 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "install": "concurrently \"yarn\" \"cd client && yarn\" ",
-    "dev": "concurrently \"ts-node-dev --respawn --transpile-only --unhandled-rejections=strict ./src/index.ts && cd \" \"cd client && yarn start \" ",
+    "build-client": "cd client && yarn build",
+    "start-client": "cd client && serve -s build",
+    "dev-server": "ts-node-dev --respawn --transpile-only --unhandled-rejections=strict ./src/index.ts",
+    "dev-client": "cd client && yarn start",
     "start": "node ./dist/index.js && cd client && yarn start",
-    "build": "concurrently \"tsc\" \"cd client && yarn build\" "
+    "build-server": "tsc",
+    "start-server": "node ./dist/index.js",
+    "build-all": "tsc && cd client && yarn build",
+    "install-deps": "yarn && cd client && yarn"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
@@ -23,7 +28,9 @@
   "dependencies": {
     "apollo-server-express": "^2.23.0",
     "axios": "^0.21.1",
+    "chalk": "^4.1.1",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
     "graphql-subscriptions": "^1.2.1",

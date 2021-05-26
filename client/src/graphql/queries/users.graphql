@@ -1,0 +1,15 @@
+query User($email: String){
+    user(email: $email) {
+        email
+        picture
+        isLoggedIn
+    }
+}
+
+query Users {
+    users {
+        email
+        picture
+        isLoggedIn
+    }
+}

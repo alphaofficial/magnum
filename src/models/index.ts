@@ -1,4 +1,5 @@
-import {model, Schema} from 'mongoose'
+import {Model, model, Schema} from 'mongoose'
+import { IMessage, IUser } from 'types';
 
 const messageSchema = new Schema({
     origin_user: {
@@ -29,5 +30,5 @@ const userSchema = new Schema({
     }
 });
 
-export const Message = model('Message', messageSchema)
-export const User = model('User', userSchema)
+export const Message: Model<IMessage> = model('Message', messageSchema)
+export const User: Model<IUser> = model('User', userSchema)

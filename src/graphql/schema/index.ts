@@ -10,7 +10,7 @@ export const typeDefs = gql`
     createdAt: String
   }
 
-  type Users {
+  type User {
     email: String
     picture: String
     isLoggedIn: Boolean
@@ -19,20 +19,20 @@ export const typeDefs = gql`
   type Query {
     messages: [Message!]
     messagesByDestinationUser(email: String): [Message!]
-    messagesBetweenTwoEntities(from: String, to: String): [Message!]
+    messagesBetweenTwoEntities(from: String!, to: String!): [Message!]
     message(email: String!): Message
-    users: [Users!]
-    user: Users
+    users: [User!]
+    user(email: String): User
   }
 
   type Mutation {
     postMessage(origin_user: String!, content: String!, destination_user: String!): [Message]
-    logUser(email: String, isLoggedIn: Boolean, picture: String): String
+    logUser(email: String, isLoggedIn: Boolean, picture: String): User
   }
 
   type Subscription {
     onMessages: [Message!]
     messages: [Message]
-    onUserUpdate: [Users!]
+    onUserUpdate: [User!]
   }
 `;

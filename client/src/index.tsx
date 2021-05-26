@@ -4,16 +4,15 @@ import './styles/index.css';
 import './styles/sidebar.css'
 import reportWebVitals from './reportWebVitals';
 import { Navigation } from './navigation';
-import { Auth0Provider } from "@auth0/auth0-react";
-import config from './config.json'
+import { Auth0Provider } from "@auth0/auth0-react"; 
 import {ApolloProvider, ApolloClient, InMemoryCache, HttpLink, split} from '@apollo/react-hooks'
 import {WebSocketLink} from '@apollo/client/link/ws'
 import {getMainDefinition} from 'apollo-utilities'
-
+import {AUTH_CID, AUTH_DOMAIN, API_URL, WS_URL} from './constants'
 
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:5600/graphql',
+  uri: `${WS_URL}/graphql`,
   options: {
     timeout: 6000,
     reconnect: true
@@ -21,7 +20,7 @@ const wsLink = new WebSocketLink({
 });
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:5600/graphql',
+  uri: `${API_URL}/graphql`,
 });
 
 const link = split(
@@ -44,7 +43,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <React.StrictMode>
-    <Auth0Provider domain={config.AUTH_DOMAIN} clientId={config.AUTH_CLIENTID} redirectUri={window.location.origin}>
+    <Auth0Provider domain={AUTH_DOMAIN || ''} clientId={AUTH_CID || ''} redirectUri={window.location.origin}>
     <ApolloProvider client={client}>
       <Navigation />
     </ApolloProvider>

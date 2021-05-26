@@ -1,6 +1,6 @@
 export {}
 import {connect, set} from 'mongoose';
-const config = require("../../config.json")
+import chalk from 'chalk';
 
 set('useNewUrlParser', true);
 set('useCreateIndex', true);
@@ -9,10 +9,11 @@ set('useUnifiedTopology', true);
 set('debug', true)
 
 export const DB_CONNECT = () => {
-    connect(config.MONGO_URI)
+    connect(`mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@cluster0.2qpdm.mongodb.net/im?retryWrites=true&w=majority`)
     .then(() => {
-        console.log("Database connection established!");
-    }, (err: Error) => {
-        console.log("Error connecting Database instance due to: " + err.message);
+        console.log(chalk.green("✅ Database connection established!"));
+    }, err => {
+        console.log(chalk.red("❌ Error connecting Database instance due to: " + err));
     }) 
+
 }
