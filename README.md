@@ -1,23 +1,7 @@
 # Instant Messenger
-## How to run
 
-### Install yarn
-```
-npm install -g yarn
-```
+Built with Typescript, React, NodeJS, graphql
 
-### Install dependencies
-```
-yarn install
-```
 
-### Build app
-```
-yarn build
-```
-
-### Start app
-```
-yarn start
-```
+![screenshot](shot.png)
 
