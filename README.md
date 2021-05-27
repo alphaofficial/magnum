@@ -1,6 +1,6 @@
 # Instant Messenger
 
-Built with Typescript, React, NodeJS, graphql
+Built with Typescript, React, NodeJS, graphql, Tailwind
 
 
 ![screenshot](shot.png)
