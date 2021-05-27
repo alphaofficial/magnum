@@ -2,7 +2,7 @@ import { Chats, Contacts, LoginButton } from "../components"
 import { useAuth0 } from "@auth0/auth0-react";
 import { useState } from "react";
 import { useLogUserMutation } from "../generated/graphql";
-
+import {LogoutButton} from '../components/auth-actions'
 
 const Conversation = () => {
 
@@ -20,6 +20,10 @@ const Conversation = () => {
     else if(user !== undefined) {
         return (
                 <div className="container">
+                    <div className="w-screen py-4 bg-black px-2 text-white flex flex-row justify-between items-center">
+                      Instant Message
+                      {isAuthenticated && <LogoutButton />}
+                      </div>
                     <div className="flex flex-row justify-start gap-y-4">
                         {<Contacts user={user} isAuthenticated={isAuthenticated} selectUser={setDestinationUser} />}
                         <Chats currentUser={user.email} destinationUser={destinationUser}/>

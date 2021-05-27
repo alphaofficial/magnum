@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import {AiOutlineLogout} from 'react-icons/ai'
 
 export const LoginButton: FC = () => {
   const { loginWithRedirect } = useAuth0();
@@ -13,7 +12,7 @@ export const LogoutButton: FC = () => {
   
     return (
       <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => logout({ returnTo: window.location.origin })}>
-        <AiOutlineLogout />
+        <span>Logout</span>
       </button>
     );
 };

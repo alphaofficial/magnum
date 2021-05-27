@@ -7,7 +7,6 @@ interface IContactProps  {
 }
 
 export const Contact: FC<IContactProps> = ({user, selectUser}) => {
-    console.log(user)
     if(!user) return null
     return (
         <Fragment>

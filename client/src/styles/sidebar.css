@@ -7,12 +7,13 @@
   width: 20%; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 999; /* Stay on top */
-  top: 0; /* Stay at the top */
+  top: 4em; /* Stay at the top */
   left: 0;
   /*background-color: #208A4C;  Black */
-  overflow-x: hidden; /* Disable horizontal scroll */
+  overflow-x: hidden;  /* Disable horizontal scroll */
   padding-top: 20px;
   border-right: 1px solid #3E649229;
+  overflow-y: scroll;
 }
 
 
