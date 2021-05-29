@@ -5,14 +5,16 @@
   "license": "MIT",
   "scripts": {
     "build-client": "cd client && yarn build",
-    "start-client": "cd client && serve -s build",
+    "start-client": "cd client && serve -s build -l 3000",
     "dev-server": "ts-node-dev --respawn --transpile-only --unhandled-rejections=strict ./src/index.ts",
     "dev-client": "cd client && yarn start",
-    "start": "node ./dist/index.js && cd client && yarn start",
     "build-server": "tsc",
     "start-server": "node ./dist/index.js",
-    "build-all": "tsc && cd client && yarn build",
-    "install-deps": "yarn && cd client && yarn"
+    "install-deps": "concurrently \"yarn \"  \"cd client && yarn\"",
+    "build": "concurrently \"tsc \" \"cd client && yarn build\"",
+    "start-dev": "concurrently \"ts-node-dev --respawn --transpile-only --unhandled-rejections=strict ./src/index.ts \" \" cd client && yarn start \"",
+    "open": "concurrently \"http-server -a localhost -p 5000\" \"sleepms 1000 && open http://localhost:5000\"",
+    "start": "concurrently \" yarn start-server \" \" yarn start-client \""
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
@@ -20,6 +22,7 @@
     "@types/mongoose": "^5.10.5",
     "@types/node": "^14.14.41",
     "concurrently": "^6.0.2",
+    "http-server": "^0.12.3",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.6",
     "tslint": "^6.1.3",
