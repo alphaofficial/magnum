@@ -12,7 +12,7 @@
     "build": "concurrently \"tsc \" \"cd client && yarn build\"",
     "heroku-postbuild": "concurrently \"yarn \"  \"cd client && yarn\"",
     "start-dev": "concurrently \"ts-node-dev --respawn --transpile-only --unhandled-rejections=strict ./src/index.ts \" \" cd client && yarn start \"",
-    "start": "NODE_ENV=production yarn start-server"
+    "start": "NODE_ENV=production node ./dist/index.js"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
