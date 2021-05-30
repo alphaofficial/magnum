@@ -10,6 +10,7 @@
     "build-server": "tsc",
     "build-client": "cd client && yarn build",
     "build": "concurrently \"tsc \" \"cd client && yarn build\"",
+    "heroku-prebuild": "concurrently \"yarn \"  \"cd client && yarn\"",
     "start-dev": "concurrently \"ts-node-dev --respawn --transpile-only --unhandled-rejections=strict ./src/index.ts \" \" cd client && yarn start \"",
     "start": "NODE_ENV=production yarn start-server"
   },
