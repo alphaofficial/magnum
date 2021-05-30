@@ -40,11 +40,13 @@ yarn start-dev
 ```
 
 ## Build server and client for production
+Build server and client
 ```
-yarn build-server
+yarn build
 ```
 
+Run application
 ```
-yarn build client
+yarn start
 ```
 
