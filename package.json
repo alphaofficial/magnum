@@ -4,17 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build-client": "cd client && yarn build",
-    "start-client": "cd client && serve -s build -l 3000",
+    "prestart": "concurrently \"yarn \"  \"cd client && yarn\"",
     "dev-server": "ts-node-dev --respawn --transpile-only --unhandled-rejections=strict ./src/index.ts",
     "dev-client": "cd client && yarn start",
     "build-server": "tsc",
-    "start-server": "node ./dist/index.js",
-    "install-deps": "concurrently \"yarn \"  \"cd client && yarn\"",
+    "build-client": "cd client && yarn build",
     "build": "concurrently \"tsc \" \"cd client && yarn build\"",
     "start-dev": "concurrently \"ts-node-dev --respawn --transpile-only --unhandled-rejections=strict ./src/index.ts \" \" cd client && yarn start \"",
-    "open": "concurrently \"http-server -a localhost -p 5000\" \"sleepms 1000 && open http://localhost:5000\"",
-    "start": "concurrently \" yarn start-server \" \" yarn start-client \""
+    "start": "NODE_ENV=production yarn start-server"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",

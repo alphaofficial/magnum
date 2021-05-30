@@ -28,11 +28,7 @@ const MessagesComponent: FC<IMessageComponentProps> = ({currentUser, destination
         scrollToBottom()
     }, [messages])
 
-    useEffect(() => {
-        subscription()
-    }, [subscription])
-
-
+    subscription()
 
     if(!messages) return null
 
@@ -57,7 +53,7 @@ const MessagesComponent: FC<IMessageComponentProps> = ({currentUser, destination
                         borderBottomLeftRadius: currentUser === message.origin_user ? '.5em' : undefined, 
                         maxWidth: '60%'
                     }}>
-                        {message.content}
+                        <p>{message.content}</p>
                     </div>
                 </div>
             ))}
@@ -87,7 +83,7 @@ export const Chats: FC<IChatProps> = ({currentUser, destinationUser}) => {
     };
 
     const sendMessage = () => {
-        console.log(currentUser, content, destinationUser)
+        console.log(currentUser, content, destinationUser, data)
         if(content.length > 0){
             PostMessage({
                 variables: {from: currentUser, content: content, to: destinationUser}
@@ -102,7 +98,8 @@ export const Chats: FC<IChatProps> = ({currentUser, destinationUser}) => {
 			subscribeToMore({
                 document: MessagesBetweenTwoEntitiesDocument,
                 variables: {from: currentUser, to: destinationUser},
-                updateQuery: (MessagesBetweenTwoEntitiesDocument, { subscriptionData }) => {
+                updateQuery: (prev, { subscriptionData }) => {
+                    if (!subscriptionData.data) return prev;
                     return subscriptionData.data
                 }
             })
@@ -110,11 +107,17 @@ export const Chats: FC<IChatProps> = ({currentUser, destinationUser}) => {
 	}
 
     useEffect(() => {
+        console.log(data)
         setShowEmojiPicker(false)
-    }, [])
+    }, [data])
+
+    useEffect(() => {
+        subscribeToNewChats()
+    }, [subscribeToNewChats])
 
 
     if(error) return null
+    if(!subscribeToNewChats || !subscribeToMore) return null
     else if(!data) {
         return (
             <Fragment>

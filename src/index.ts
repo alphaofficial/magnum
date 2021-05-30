@@ -25,9 +25,9 @@ async function startApolloServer() {
   await server.start();
   server.applyMiddleware({app})
 
-  if(process.env.ENVIRONMENT === "production") {
+  if(process.env.NODE_ENV==='production') {
     app.use(express.static(path.join(__dirname, '../client', 'build')));
-    app.use(async (req: Request, res: Response, next: NextFunction) => {
+    app.get("/", (req, res) => {
       res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
     })
   }
@@ -35,8 +35,12 @@ async function startApolloServer() {
   const httpServer = createServer(app);
   server.installSubscriptionHandlers(httpServer);
 
-  // Make sure to call listen on httpServer, NOT on app.
+
   httpServer.listen(PORT)
+ 
+  if (process.env.NODE_ENV==='production') {
+    console.log(chalk.yellow(`🚀 Client ready at http://localhost:${PORT}`))
+  }
   console.log(chalk.cyan(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`))
   console.log(chalk.cyan(`🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`))
   return { server, app, httpServer };

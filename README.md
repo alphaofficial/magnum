@@ -31,17 +31,12 @@ REACT_APP_AUTH_CID
 ## Run locally
 Install dependencies
 ```
-yarn install-deps
+yarn prestart
 ```
 
-Start server
+Start application
 ```
-yarn dev-server
-```
-
-Start client
-```
-yarn dev-client
+yarn start-dev
 ```
 
 ## Build server and client for production
