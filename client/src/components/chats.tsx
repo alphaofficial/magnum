@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useState } from "react"
+import { FC, Fragment, useCallback, useEffect, useState } from "react"
 import {animateScroll} from 'react-scroll'
 import { useMessagesBetweenTwoEntitiesQuery, usePostMessageMutation, MessagesBetweenTwoEntitiesDocument, MessagesBetweenTwoEntitiesQuery } from "../generated/graphql"
 import Picker, { SKIN_TONE_MEDIUM_DARK, IEmojiData } from 'emoji-picker-react';
@@ -28,7 +28,13 @@ const MessagesComponent: FC<IMessageComponentProps> = ({currentUser, destination
         scrollToBottom()
     }, [messages])
 
-    subscription()
+    const sub = useCallback(() => {
+        subscription()
+    }, [])
+
+    sub()
+
+    
 
     if(!messages) return null
 
@@ -71,6 +77,7 @@ export const Chats: FC<IChatProps> = ({currentUser, destinationUser}) => {
     const [PostMessage] = usePostMessageMutation()
     const [showEmojiPicker, setShowEmojiPicker] = useState(false)
     const [chosenEmoji, setChosenEmoji] = useState<IEmojiData | undefined>();
+    //const [newData, setNewData] = useState<MessagesBetweenTwoEntitiesQuery>()
 
     const onEmojiClick = (event: React.MouseEvent<Element, MouseEvent>, data: IEmojiData) => {
         console.log(chosenEmoji)
@@ -83,7 +90,7 @@ export const Chats: FC<IChatProps> = ({currentUser, destinationUser}) => {
     };
 
     const sendMessage = () => {
-        console.log(currentUser, content, destinationUser, data)
+        //console.log(currentUser, content, destinationUser, data)
         if(content.length > 0){
             PostMessage({
                 variables: {from: currentUser, content: content, to: destinationUser}
@@ -93,8 +100,8 @@ export const Chats: FC<IChatProps> = ({currentUser, destinationUser}) => {
         }
     }
 
-    let subscribeToNewChats = () => {
-		if (currentUser && destinationUser && subscribeToMore !== undefined) {
+    const subscribeToNewChats = useCallback(() => {
+        if (currentUser && destinationUser && subscribeToMore !== undefined) {
 			subscribeToMore({
                 document: MessagesBetweenTwoEntitiesDocument,
                 variables: {from: currentUser, to: destinationUser},
@@ -104,17 +111,13 @@ export const Chats: FC<IChatProps> = ({currentUser, destinationUser}) => {
                 }
             })
 		}
-	}
+    }, [currentUser, destinationUser, subscribeToMore]);
+
 
     useEffect(() => {
         console.log(data)
         setShowEmojiPicker(false)
     }, [data])
-
-    useEffect(() => {
-        subscribeToNewChats()
-    }, [subscribeToNewChats])
-
 
     if(error) return null
     if(!subscribeToNewChats || !subscribeToMore) return null

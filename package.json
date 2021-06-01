@@ -9,8 +9,7 @@
     "dev-client": "cd client && yarn start",
     "build-server": "tsc",
     "build-client": "cd client && yarn build",
-    "build": "concurrently \"tsc \" \"cd client && yarn build\"",
-    "heroku-postbuild": "concurrently \"yarn \"  \"cd client && yarn\"",
+    "build": "concurrently \"yarn \"  \"cd client && yarn\" && concurrently \"tsc \" \"cd client && yarn build\"",
     "start-dev": "concurrently \"ts-node-dev --respawn --transpile-only --unhandled-rejections=strict ./src/index.ts \" \" cd client && yarn start \"",
     "start": "NODE_ENV=production node ./dist/index.js"
   },
