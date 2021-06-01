@@ -31,7 +31,7 @@ REACT_APP_AUTH_CID
 ## Run locally
 Install dependencies
 ```
-yarn prestart
+yarn install-deps
 ```
 
 Start application
