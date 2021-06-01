@@ -9,7 +9,7 @@
     "dev-client": "cd client && yarn start",
     "build-server": "tsc",
     "build-client": "cd client && yarn build",
-    "build": "concurrently \"yarn \"  \"cd client && yarn\" && concurrently \"tsc \" \"cd client && yarn build\"",
+    "build": "yarn install-deps && concurrently \"yarn build-server \" \"yarn build-client\"",
     "start-dev": "concurrently \"ts-node-dev --respawn --transpile-only --unhandled-rejections=strict ./src/index.ts \" \" cd client && yarn start \"",
     "start": "NODE_ENV=production node ./dist/index.js"
   },
